@@ -5,8 +5,15 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
+export async function generateStaticParams() {
+  const { data } = await supabase.from('pages').select('slug');
+  return (data || []).map((row) => ({ slug: row.slug }));
+}
+
+export const dynamic = 'force-dynamic';
+
 export default async function DynamicPage({ params }) {
-  const { slug } = params;
+  const { slug } = await params;  // ← await added
 
   const { data, error } = await supabase
     .from('pages')
