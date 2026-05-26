@@ -5,8 +5,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
-// ❌ generateStaticParams সরিয়ে দাও
-export const dynamic = 'force-dynamic'; // ✅ শুধু এটা রাখো
+export const dynamic = 'force-dynamic';
 
 export default async function DynamicPage({ params }) {
   const { slug } = await params;
@@ -34,7 +33,7 @@ export default async function DynamicPage({ params }) {
           {data.content}
         </div>
         <div style={{ marginTop: '16px', fontSize: '12px', color: 'rgba(255,255,255,0.2)' }}>
-          সর্বশেষ আপডেট: {new Date(data.updated_at).toLocaleDateString('bn-BD')}
+          {new Date(data.updated_at).toLocaleDateString('bn-BD')}
         </div>
       </div>
     </div>
