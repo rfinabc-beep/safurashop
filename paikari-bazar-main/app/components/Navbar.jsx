@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
 
@@ -138,8 +137,6 @@ export default function Navbar() {
           outline: none !important;
           box-shadow: none !important;
         }
-
-        /* Sign in button */
         .signin-btn {
           display: flex;
           align-items: center;
@@ -158,16 +155,8 @@ export default function Navbar() {
           letter-spacing: 0.02em;
           transition: transform 0.15s;
         }
-        .signin-btn:hover {
-          transform: scale(1.05);
-        }
-        .signin-btn-mobile {
-          padding: 5px 10px;
-          font-size: 11px;
-          gap: 5px;
-        }
-
-        /* Category bar */
+        .signin-btn:hover { transform: scale(1.05); }
+        .signin-btn-mobile { padding: 5px 10px; font-size: 11px; gap: 5px; }
         .cat-bar-btn {
           background: none;
           border: none;
@@ -201,8 +190,6 @@ export default function Navbar() {
           background: rgba(0,0,0,0.32) !important;
           border-bottom-color: #fff !important;
         }
-
-        /* Mega dropdown */
         .mega-dropdown {
           position: absolute;
           top: 100%;
@@ -279,15 +266,8 @@ export default function Navbar() {
           transition: background 0.12s, color 0.12s;
           line-height: 1.4;
         }
-        .mega-sub-item:hover {
-          background: #fff3eb;
-          color: #ff6a00;
-        }
-        .mega-sub-item .sub-icon {
-          font-size: 20px;
-          display: block;
-          margin-bottom: 4px;
-        }
+        .mega-sub-item:hover { background: #fff3eb; color: #ff6a00; }
+        .mega-sub-item .sub-icon { font-size: 20px; display: block; margin-bottom: 4px; }
         .mega-view-all {
           display: block;
           width: 100%;
@@ -305,15 +285,11 @@ export default function Navbar() {
           transition: background 0.15s;
         }
         .mega-view-all:hover { background: #e85d00; }
-
-        /* Accordion subcategory slide */
         @keyframes subSlide {
           from { opacity: 0; transform: translateY(-4px); }
           to   { opacity: 1; transform: translateY(0); }
         }
-        .sub-slide {
-          animation: subSlide 0.18s ease forwards;
-        }
+        .sub-slide { animation: subSlide 0.18s ease forwards; }
       `}</style>
 
       {/* Top bar — desktop only */}
@@ -332,28 +308,20 @@ export default function Navbar() {
         background: '#1a1a2e',
         padding: isMobile ? '10px 16px' : '10px 20px',
         display: 'flex',
-        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         borderBottom: '2px solid #ff6a00',
-        position: 'sticky', top: 0, zIndex: 100
+        position: 'sticky', top: 0, zIndex: 100,
       }}>
-
-        {/* Left: Hamburger (mobile) + Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 12 : 0 }}>
           {isMobile && (
-            <button
-              className="nav-icon-btn"
-              onClick={() => setMenuOpen(prev => !prev)}
-              style={{ padding: '4px' }}
-            >
+            <button className="nav-icon-btn" onClick={() => setMenuOpen(prev => !prev)} style={{ padding: '4px' }}>
               <HamburgerIcon color="#fff" />
             </button>
           )}
           <LogoMark router={router} size={isMobile ? 'small' : 'large'} />
         </div>
 
-        {/* Right: Sign in + Cart */}
         <div style={{ display: 'flex', gap: isMobile ? 16 : 20, alignItems: 'center' }}>
           <button
             className={`signin-btn${isMobile ? ' signin-btn-mobile' : ''}`}
@@ -401,10 +369,7 @@ export default function Navbar() {
                       key={cat.id}
                       className={`mega-left-item${hoveredCatId === cat.id ? ' active' : ''}`}
                       onMouseEnter={() => setHoveredCatId(cat.id)}
-                      onClick={() => {
-                        router.push(`/products?cat=${encodeURIComponent(cat.name)}`);
-                        setMenuOpen(false);
-                      }}
+                      onClick={() => { router.push(`/products?cat=${encodeURIComponent(cat.name)}`); setMenuOpen(false); }}
                     >
                       <span style={{ fontSize: 16 }}>
                         {cat.image_url
@@ -420,9 +385,7 @@ export default function Navbar() {
                   ))}
                 </div>
                 <div className="mega-right">
-                  {hoveredCategory && (
-                    <div className="mega-right-title">{hoveredCategory.name}</div>
-                  )}
+                  {hoveredCategory && <div className="mega-right-title">{hoveredCategory.name}</div>}
                   {hoveredSubs.length > 0 ? (
                     <>
                       <div className="mega-sub-grid">
@@ -430,10 +393,7 @@ export default function Navbar() {
                           <div
                             key={sub.id}
                             className="mega-sub-item"
-                            onClick={() => {
-                              router.push(`/products?cat=${encodeURIComponent(sub.name)}`);
-                              setMenuOpen(false);
-                            }}
+                            onClick={() => { router.push(`/products?cat=${encodeURIComponent(sub.name)}`); setMenuOpen(false); }}
                           >
                             <span className="sub-icon">
                               {sub.image_url
@@ -445,24 +405,12 @@ export default function Navbar() {
                           </div>
                         ))}
                       </div>
-                      <button
-                        className="mega-view-all"
-                        onClick={() => {
-                          router.push(`/products?cat=${encodeURIComponent(hoveredCategory?.name)}`);
-                          setMenuOpen(false);
-                        }}
-                      >
+                      <button className="mega-view-all" onClick={() => { router.push(`/products?cat=${encodeURIComponent(hoveredCategory?.name)}`); setMenuOpen(false); }}>
                         View all in {hoveredCategory?.name} →
                       </button>
                     </>
                   ) : (
-                    <button
-                      className="mega-view-all"
-                      onClick={() => {
-                        router.push(`/products?cat=${encodeURIComponent(hoveredCategory?.name)}`);
-                        setMenuOpen(false);
-                      }}
-                    >
+                    <button className="mega-view-all" onClick={() => { router.push(`/products?cat=${encodeURIComponent(hoveredCategory?.name)}`); setMenuOpen(false); }}>
                       View all products →
                     </button>
                   )}
@@ -472,38 +420,26 @@ export default function Navbar() {
           </div>
 
           {categories.slice(0, 8).map(cat => (
-            <button
-              key={cat.id}
-              className="cat-bar-btn"
-              onClick={() => router.push(`/products?cat=${encodeURIComponent(cat.name)}`)}
-            >
+            <button key={cat.id} className="cat-bar-btn" onClick={() => router.push(`/products?cat=${encodeURIComponent(cat.name)}`)}>
               {cat.name}
             </button>
           ))}
 
-          <button
-            className="cat-bar-btn"
-            style={{ marginLeft: 'auto', opacity: 0.85 }}
-            onClick={() => router.push('/products')}
-          >
+          <button className="cat-bar-btn" style={{ marginLeft: 'auto', opacity: 0.85 }} onClick={() => router.push('/products')}>
             View All →
           </button>
         </div>
       )}
 
-      {/* Mobile: slide-out category drawer with accordion */}
+      {/* Mobile drawer */}
       {isMobile && menuOpen && (
         <div style={{ position: 'fixed', inset: 0, zIndex: 200, display: 'flex' }}>
-          <div
-            style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)' }}
-            onClick={() => setMenuOpen(false)}
-          />
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)' }} onClick={() => setMenuOpen(false)} />
           <div style={{
             position: 'relative', width: 300, background: '#fff',
             height: '100%', overflowY: 'auto', zIndex: 1,
             animation: 'slideInLeft 0.22s ease forwards',
           }}>
-            {/* Drawer header */}
             <div style={{
               background: '#1a1a2e', padding: '16px',
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -517,13 +453,11 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Accordion categories */}
             {categories.map(cat => {
               const subs = subMap[cat.id] || [];
               const isOpen = expandedCatId === cat.id;
               return (
                 <div key={cat.id}>
-                  {/* Parent row */}
                   <div
                     style={{
                       display: 'flex', alignItems: 'center', gap: 12,
@@ -557,8 +491,6 @@ export default function Navbar() {
                       </span>
                     )}
                   </div>
-
-                  {/* Subcategories (accordion) */}
                   {isOpen && subs.length > 0 && (
                     <div className="sub-slide">
                       {subs.map(sub => (
@@ -568,20 +500,15 @@ export default function Navbar() {
                             padding: '10px 16px 10px 52px',
                             borderBottom: '1px solid #f8f8f8',
                             fontSize: 13, color: '#555', cursor: 'pointer',
-                            background: '#fafafa',
-                            transition: 'background 0.12s',
+                            background: '#fafafa', transition: 'background 0.12s',
                           }}
-                          onClick={() => {
-                            router.push(`/products?cat=${encodeURIComponent(sub.name)}`);
-                            setMenuOpen(false);
-                          }}
+                          onClick={() => { router.push(`/products?cat=${encodeURIComponent(sub.name)}`); setMenuOpen(false); }}
                           onMouseEnter={e => e.currentTarget.style.background = '#fff3eb'}
                           onMouseLeave={e => e.currentTarget.style.background = '#fafafa'}
                         >
                           {sub.name}
                         </div>
                       ))}
-                      {/* View all in category */}
                       <div
                         style={{
                           padding: '10px 16px 10px 52px',
@@ -589,10 +516,7 @@ export default function Navbar() {
                           fontSize: 12, color: '#ff6a00', cursor: 'pointer',
                           fontWeight: 700, background: '#fafafa',
                         }}
-                        onClick={() => {
-                          router.push(`/products?cat=${encodeURIComponent(cat.name)}`);
-                          setMenuOpen(false);
-                        }}
+                        onClick={() => { router.push(`/products?cat=${encodeURIComponent(cat.name)}`); setMenuOpen(false); }}
                       >
                         সব দেখুন →
                       </div>
@@ -611,16 +535,21 @@ export default function Navbar() {
 /* ── Sub-components ── */
 
 function LogoMark({ router, size }) {
-  const w = size === 'large' ? 80 : 70;
-  const h = size === 'large' ? 32 : 28;
   const dot = size === 'large' ? 7 : 6;
   return (
     <div
       style={{ display: 'inline-flex', alignItems: 'flex-end', cursor: 'pointer', flexShrink: 0 }}
       onClick={() => router.push('/')}
     >
-      <Image src="/logo.png" alt="Arat" width={w} height={h} style={{ objectFit: 'contain' }} />
-      <div style={{ display: 'flex', alignItems: 'center', gap: '3px', marginLeft: '3px', marginBottom: '3px' }}>
+      <span style={{
+        fontSize: size === 'large' ? 26 : 22,
+        fontWeight: 900,
+        color: '#ff6a00',
+        letterSpacing: '0.02em',
+        fontFamily: 'inherit',
+        lineHeight: 1,
+      }}>Safura</span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '3px', marginLeft: '5px', marginBottom: '3px' }}>
         {['#ff3b3b', '#e8a020', '#22c55e'].map((bg, i) => (
           <span key={i} style={{ width: dot, height: dot, borderRadius: '50%', background: bg, display: 'block', animation: `blink 1.2s ease-in-out infinite ${i * 0.4}s` }} />
         ))}
@@ -674,7 +603,7 @@ function CartCount() {
       position: 'absolute', top: '-6px', right: '-6px',
       background: '#ff6a00', color: '#fff', borderRadius: '50%',
       width: '18px', height: '18px', fontSize: '11px', fontWeight: '700',
-      display: 'flex', alignItems: 'center', justifyContent: 'center'
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
     }}>
       {count}
     </span>
